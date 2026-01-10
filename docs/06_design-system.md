@@ -93,6 +93,16 @@ A UI nunca deve permitir sobrescrever manualmente esses comportamentos.
 O design system existe para proteger o usuário de sobrecarga cognitiva
 e proteger o produto de inconsistência visual.
 
+## Referência Visual (Figma)
+
+Uma referência visual estática foi criada no Figma para ilustrar o fluxo principal do usuário  
+e apoiar decisões de implementação da interface.
+
+Essa referência é ilustrativa e não prescritiva.
+
+Link do Figma:  
+https://www.figma.com/design/mKJU3AbHWYCCyqwy2INsAt/mindeasy-app-fase5
+
 
 EN:
 # MindEase — Design System
@@ -174,3 +184,16 @@ The UI must never override these behaviors manually.
 
 The design system exists to protect the user from cognitive overload
 and protect the product from visual inconsistency.
+
+---
+
+## Visual Reference (Figma)
+
+A static visual reference was created in Figma to illustrate the core user flow
+and support UI implementation decisions.
+
+This reference is illustrative and non-prescriptive.
+
+Figma link:
+https://www.figma.com/design/mKJU3AbHWYCCyqwy2INsAt/mindeasy-app-fase5
+
