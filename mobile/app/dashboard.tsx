@@ -1,42 +1,70 @@
 import { useAuth } from "@/application/auth/AuthContext";
+import { useCognitive } from "@/application/cognitive/CognitiveContext";
+import { useEmotional } from "@/application/emotional/EmotionalContext";
 import Button from "@/presentation/components/atoms/Button";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { Title } from "@/presentation/components/atoms/Title";
 import { useTheme } from "@/presentation/theme/ThemeContext";
-import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Dashboard() {
   const { theme } = useTheme();
-  const { user, logout } = useAuth();
-  const router = useRouter();
+  const { user } = useAuth();
+  const { state } = useEmotional();
+  const { settings } = useCognitive();
 
-  const handleLogout = async () => {
-    await logout();
-    router.replace("/");
+  const emotionalMessage = {
+    calm: "Ótimo momento para avançar.",
+    neutral: "Vamos seguir com tranquilidade.",
+    overwhelmed: "Vamos focar em uma coisa de cada vez.",
   };
 
-  return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <View style={styles.content}>
-        <Title>Welcome, {user?.name}</Title>
-        <Subtitle>This is your MindEase dashboard.</Subtitle>
+  const showGreeting = settings.complexity !== "low";
+  const showEmotion = settings.complexity === "high" && state;
 
-        <Button title="Logout" variant="secondary" onPress={handleLogout} />
+  return (
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.background }]}
+      edges={["top", "left", "right"]}
+    >
+      <View style={styles.content}>
+        {showGreeting && <Title>Olá, {user?.name}</Title>}
+
+        {showEmotion && <Subtitle>{emotionalMessage[state!.type]}</Subtitle>}
+
+        <View style={[styles.primaryCard, { backgroundColor: theme.surface }]}>
+          <Title style={{ fontSize: 20 }}>Sessão de foco</Title>
+
+          {settings.complexity !== "low" && (
+            <Subtitle>
+              {settings.focusMode
+                ? "Modo foco ativado."
+                : "Pronto para começar?"}
+            </Subtitle>
+          )}
+
+          <Button title="Iniciar agora" style={{ marginTop: 12 }} />
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    paddingHorizontal: 24,
   },
   content: {
-    gap: 20,
-    alignItems: "center",
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingTop: 100,
+    gap: 24,
+  },
+  primaryCard: {
+    padding: 24,
+    borderRadius: 20,
+    gap: 10,
   },
 });

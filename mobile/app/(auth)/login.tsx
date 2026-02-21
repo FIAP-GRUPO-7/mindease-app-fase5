@@ -16,7 +16,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     await login(name);
-    router.replace("/");
+    router.replace("/checkin");
   };
 
   return (

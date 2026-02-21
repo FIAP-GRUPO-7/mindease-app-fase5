@@ -3,6 +3,7 @@ import { AuthRepository } from "@/domain/repositories/AuthRepository";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const STORAGE_KEY = "mindease_user";
+const SETTINGS_KEY = "mindease_cognitive_settings";
 
 export class AuthRepositoryImpl implements AuthRepository {
   async login(name: string): Promise<User> {
@@ -13,6 +14,7 @@ export class AuthRepositoryImpl implements AuthRepository {
 
   async logout(): Promise<void> {
     await AsyncStorage.removeItem(STORAGE_KEY);
+    await AsyncStorage.removeItem(SETTINGS_KEY);
   }
 
   async getCurrentUser(): Promise<User | null> {

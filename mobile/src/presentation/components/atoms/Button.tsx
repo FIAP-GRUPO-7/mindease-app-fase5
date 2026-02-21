@@ -18,20 +18,35 @@ export default function Button({
   title,
   variant = "primary",
   style,
+  disabled,
   ...rest
 }: ButtonProps) {
   const { theme } = useTheme();
 
-  const backgroundColor =
-    variant === "primary" ? theme.buttonPrimary : theme.optionBackground;
+  const isPrimary = variant === "primary";
 
-  const textColor =
-    variant === "primary" ? theme.buttonText : theme.textPrimary;
+  const backgroundColor = disabled
+    ? theme.border
+    : isPrimary
+      ? theme.buttonPrimary
+      : theme.optionBackground;
+
+  const textColor = disabled
+    ? theme.textSecondary
+    : isPrimary
+      ? theme.buttonText
+      : theme.textPrimary;
 
   return (
     <TouchableOpacity
-      style={[styles.button, { backgroundColor }, style]}
+      style={[
+        styles.button,
+        { backgroundColor },
+        disabled && styles.disabled,
+        style,
+      ]}
       activeOpacity={0.8}
+      disabled={disabled}
       {...rest}
     >
       <Text weight="600" style={{ color: textColor }}>
@@ -48,5 +63,8 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: "center",
     justifyContent: "center",
+  },
+  disabled: {
+    opacity: 0.7,
   },
 });
