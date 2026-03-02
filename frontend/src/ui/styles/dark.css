@@ -1,0 +1,15 @@
+body.dark {
+  --surface: #1c1c1c;
+  --primary: #e5e5e5;
+  --border: #3a3a3a;
+  --hover: #6C6863;
+  color: #f5f5f5;
+  --text-primary: #f5f5f5;
+  --text-secondary: #cfcfcf;
+  --card-bg: #2a2a2a;
+  background-color: #121212;
+  --button-bg: #EAEAEA;
+  --button-text: #010101;
+  --success-bg: #242322;
+  --success-icon: #EAEAEA;
+}

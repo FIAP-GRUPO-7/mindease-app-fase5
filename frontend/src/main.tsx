@@ -1,0 +1,13 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { App } from "./ui/App";
+
+import "./ui/styles/theme.css";
+import "./ui/styles/light.css";
+import "./ui/styles/dark.css";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
