@@ -4,6 +4,7 @@ import { useFocus } from "@/application/focus/FocusContext";
 import Button from "@/presentation/components/atoms/Button";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { Title } from "@/presentation/components/atoms/Title";
+import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
 import { BreathingOrb } from "@/presentation/components/organisms/BreathingOrb";
 import { useTheme } from "@/presentation/theme/ThemeContext";
 import { router } from "expo-router";
@@ -27,44 +28,41 @@ export default function BreathingIntro() {
   };
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.background }]}
-    >
-      <View style={styles.content}>
-        <View style={styles.textContainer}>
-          <Title style={styles.title}>Respire com calma</Title>
+    <SafeAreaView style={[styles.screen, { backgroundColor: theme.background }]}>
+      <ResponsiveContainer>
+        <View style={styles.content}>
+          <View style={styles.textContainer}>
+            <Title style={styles.title}>Respire com calma</Title>
 
-          <Subtitle style={styles.subtitle}>
-            Acompanhe o movimento do círculo enquanto respira.
-          </Subtitle>
-        </View>
+            <Subtitle style={styles.subtitle}>
+              Inspire lentamente pelo nariz enquanto o círculo cresce.{"\n"}
+              Solte o ar pela boca enquanto ele se recolhe.
+            </Subtitle>
+          </View>
 
-        <View style={styles.orbContainer}>
-          <BreathingOrb
-            inhaleDuration={pattern.inhale}
-            exhaleDuration={pattern.exhale}
-            pauseDuration={pattern.pause}
-            size={200}
-          />
-        </View>
+          <View style={styles.orbContainer}>
+            <BreathingOrb
+              inhaleDuration={pattern.inhale}
+              exhaleDuration={pattern.exhale}
+              pauseDuration={pattern.pause}
+              size={200}
+            />
+          </View>
 
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Estou pronto para continuar"
-            onPress={handleContinue}
-          />
+          <View style={styles.buttonContainer}>
+            <Button title="Estou pronto para continuar" onPress={handleContinue} />
+          </View>
         </View>
-      </View>
+      </ResponsiveContainer>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  screen: { flex: 1 },
 
   content: {
     flex: 1,
-    paddingHorizontal: 48,
     paddingVertical: 60,
     justifyContent: "space-between",
   },

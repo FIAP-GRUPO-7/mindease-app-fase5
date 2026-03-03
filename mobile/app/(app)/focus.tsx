@@ -3,6 +3,7 @@ import { FocusArea } from "@/domain/entities/FocusArea";
 import Button from "@/presentation/components/atoms/Button";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { Title } from "@/presentation/components/atoms/Title";
+import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
 import { SelectableOption } from "@/presentation/components/molecules/SelectableOption";
 import { useTheme } from "@/presentation/theme/ThemeContext";
 import { router } from "expo-router";
@@ -32,46 +33,45 @@ export default function Focus() {
   };
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.background }]}
-    >
-      <View style={styles.content}>
-        <Title>Do que você precisa?</Title>
-        <Subtitle>Escolha as áreas que deseja priorizar agora.</Subtitle>
+    <SafeAreaView style={[styles.screen, { backgroundColor: theme.background }]}>
+      <ResponsiveContainer>
+        <View style={styles.content}>
+          <Title>Do que você precisa?</Title>
+          <Subtitle>Escolha as áreas que deseja priorizar agora.</Subtitle>
 
-        <SelectableOption
-          label="Clareza"
-          selected={selected.includes("clarity")}
-          onPress={() => toggleSelection("clarity")}
-        />
+          <SelectableOption
+            label="Clareza"
+            selected={selected.includes("clarity")}
+            onPress={() => toggleSelection("clarity")}
+          />
 
-        <SelectableOption
-          label="Foco"
-          selected={selected.includes("focus")}
-          onPress={() => toggleSelection("focus")}
-        />
+          <SelectableOption
+            label="Foco"
+            selected={selected.includes("focus")}
+            onPress={() => toggleSelection("focus")}
+          />
 
-        <SelectableOption
-          label="Calma"
-          selected={selected.includes("calm")}
-          onPress={() => toggleSelection("calm")}
-        />
+          <SelectableOption
+            label="Calma"
+            selected={selected.includes("calm")}
+            onPress={() => toggleSelection("calm")}
+          />
 
-        <Button
-          title="Continuar"
-          onPress={handleContinue}
-          disabled={selected.length === 0}
-        />
-      </View>
+          <Button
+            title="Continuar"
+            onPress={handleContinue}
+            disabled={selected.length === 0}
+          />
+        </View>
+      </ResponsiveContainer>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  screen: { flex: 1 },
   content: {
     flex: 1,
-    padding: 24,
     justifyContent: "center",
     gap: 16,
   },

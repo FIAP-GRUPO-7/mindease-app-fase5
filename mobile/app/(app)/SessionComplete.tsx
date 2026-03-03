@@ -2,6 +2,7 @@ import Button from "@/presentation/components/atoms/Button";
 import { CheckIndicator } from "@/presentation/components/atoms/CheckIndicator";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { Title } from "@/presentation/components/atoms/Title";
+import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
 import { useTheme } from "@/presentation/theme/ThemeContext";
 import { router } from "expo-router";
 import React from "react";
@@ -12,39 +13,39 @@ export default function SessionComplete() {
   const { theme } = useTheme();
 
   const handleReturn = () => {
-    router.replace("/(app)/dashboard");
+    router.replace("/dashboard");
   };
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.background }]}
-    >
-      <View style={styles.content}>
-        <View style={styles.centerContent}>
-          <CheckIndicator size={90} />
+    <SafeAreaView style={[styles.screen, { backgroundColor: theme.background }]}>
+      <ResponsiveContainer>
+        <View style={styles.content}>
+          <View style={styles.centerContent}>
+            <CheckIndicator size={90} />
 
-          <Title style={styles.title}>Muito bem</Title>
+            <Title style={styles.title}>Muito bem</Title>
 
-          <Subtitle style={styles.subtitle}>
-            Você concluiu esta sessão. Leve esse momento de calma com você ao
-            longo do dia.
-          </Subtitle>
+            <Subtitle style={styles.subtitle}>
+              Você concluiu esta sessão. Leve esse momento de calma com você ao
+              longo do dia.
+            </Subtitle>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <Button title="Voltar ao início" onPress={handleReturn} />
+          </View>
         </View>
-
-        <View style={styles.buttonContainer}>
-          <Button title="Voltar ao início" onPress={handleReturn} />
-        </View>
-      </View>
+      </ResponsiveContainer>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  screen: { flex: 1 },
 
   content: {
     flex: 1,
-    padding: 24,
+    paddingVertical: 24,
     justifyContent: "space-between",
   },
 
