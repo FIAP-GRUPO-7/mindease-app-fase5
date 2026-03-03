@@ -1,7 +1,11 @@
 import { AuthProvider } from "@/application/auth/AuthContext";
 import { CognitiveProvider } from "@/application/cognitive/CognitiveContext";
 import { EmotionalProvider } from "@/application/emotional/EmotionalContext";
+import { FocusProvider } from "@/application/focus/FocusContext";
+import { TaskProvider } from "@/application/tasks/TaskContext";
+import { darkTheme } from "@/presentation/theme/theme";
 import { ThemeProvider, useTheme } from "@/presentation/theme/ThemeContext";
+
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SystemUI from "expo-system-ui";
@@ -14,9 +18,11 @@ function AppLayout() {
     SystemUI.setBackgroundColorAsync(theme.background);
   }, [theme]);
 
+  const isDark = theme.background === darkTheme.background;
+
   return (
     <>
-      <StatusBar style="dark" />
+      <StatusBar style={isDark ? "light" : "dark"} />
       <Stack screenOptions={{ headerShown: false }} />
     </>
   );
@@ -28,7 +34,11 @@ export default function RootLayout() {
       <AuthProvider>
         <EmotionalProvider>
           <CognitiveProvider>
-            <AppLayout />
+            <FocusProvider>
+              <TaskProvider>
+                <AppLayout />
+              </TaskProvider>
+            </FocusProvider>
           </CognitiveProvider>
         </EmotionalProvider>
       </AuthProvider>

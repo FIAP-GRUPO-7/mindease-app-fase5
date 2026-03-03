@@ -1,4 +1,4 @@
-export type EmotionalType = "calm" | "neutral" | "overwhelmed";
+export type EmotionalType = "anxious" | "distracted" | "overwhelmed";
 
 export interface EmotionalState {
   type: EmotionalType;

@@ -13,8 +13,8 @@ export class AuthRepositoryImpl implements AuthRepository {
   }
 
   async logout(): Promise<void> {
-    await AsyncStorage.removeItem(STORAGE_KEY);
-    await AsyncStorage.removeItem(SETTINGS_KEY);
+    console.log("Logging out, clearing user and settings from storage");
+    await AsyncStorage.multiRemove([STORAGE_KEY, SETTINGS_KEY]);
   }
 
   async getCurrentUser(): Promise<User | null> {

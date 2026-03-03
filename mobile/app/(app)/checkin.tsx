@@ -19,7 +19,7 @@ export default function CheckIn() {
   const handleContinue = async () => {
     if (!selected) return;
     await setState(selected);
-    router.replace("/dashboard");
+    router.replace("/(app)/focus");
   };
 
   return (
@@ -30,20 +30,20 @@ export default function CheckIn() {
 
       <View style={styles.content}>
         <View style={{ marginBottom: 40 }}>
-          <Title>Como você está hoje?</Title>
+          <Title>Como você está agora?</Title>
           <Subtitle>Escolha a opção que mais combina com você agora.</Subtitle>
         </View>
 
         <SelectableCard
-          label="Calmo"
-          selected={selected === "calm"}
-          onPress={() => setSelected("calm")}
+          label="Ansioso"
+          selected={selected === "anxious"}
+          onPress={() => setSelected("anxious")}
         />
 
         <SelectableCard
-          label="Neutro"
-          selected={selected === "neutral"}
-          onPress={() => setSelected("neutral")}
+          label="Distraído"
+          selected={selected === "distracted"}
+          onPress={() => setSelected("distracted")}
         />
 
         <SelectableCard

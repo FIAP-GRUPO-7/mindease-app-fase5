@@ -1,7 +1,5 @@
-import { useEmotional } from "@/application/emotional/EmotionalContext";
 import { CognitiveSettingsRepositoryImpl } from "@/data/repositories/CognitiveSettingsRepositoryImpl";
 import { CognitiveSettings } from "@/domain/entities/CognitiveSettings";
-import { adaptCognitiveSettings } from "@/domain/services/AdaptCognitiveSettings";
 import { GetCognitiveSettingsUseCase } from "@/domain/useCases/GetCognitiveSettingsUseCase";
 import { UpdateCognitiveSettingsUseCase } from "@/domain/useCases/UpdateCognitiveSettingsUseCase";
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -25,10 +23,6 @@ export function CognitiveProvider({ children }: { children: React.ReactNode }) {
     reducedAnimations: false,
   });
 
-  const { state: emotionalState } = useEmotional();
-
-  const effectiveSettings = adaptCognitiveSettings(settings, emotionalState);
-
   const [loading, setLoading] = useState(true);
 
   const getUseCase = new GetCognitiveSettingsUseCase(repository);
@@ -43,27 +37,13 @@ export function CognitiveProvider({ children }: { children: React.ReactNode }) {
     load();
   }, []);
 
-  useEffect(() => {
-    console.log(
-      "Emotional state changed:",
-      JSON.stringify(emotionalState, null, 2),
-    );
-    console.log(
-      "Effective settings changed:",
-      JSON.stringify(effectiveSettings, null, 2),
-    );
-    console.log("Base settings:", JSON.stringify(settings, null, 2));
-  }, [settings, emotionalState, effectiveSettings]);
-
   const update = async (newSettings: CognitiveSettings) => {
     await updateUseCase.execute(newSettings);
     setSettings(newSettings);
   };
 
   return (
-    <CognitiveContext.Provider
-      value={{ settings: effectiveSettings, update, loading }}
-    >
+    <CognitiveContext.Provider value={{ settings, update, loading }}>
       {children}
     </CognitiveContext.Provider>
   );

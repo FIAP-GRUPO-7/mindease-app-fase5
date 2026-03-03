@@ -14,6 +14,7 @@ export const lightTheme = {
   optionSelected: "#AFAFAF",
 
   icon: "#4A4A4A",
+  statusbarBackground: "#E6E6E6",
 };
 
 export const darkTheme = {
@@ -32,6 +33,7 @@ export const darkTheme = {
   optionSelected: "#4A443F",
 
   icon: "#F5F5F5",
+  statusbarBackground: "#1E1A17",
 };
 
 export type ThemeType = typeof lightTheme;
