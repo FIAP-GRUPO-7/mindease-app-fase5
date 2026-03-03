@@ -8,9 +8,11 @@
 .card {
   width: 100%;
   max-width: 420px;
-  padding: 32px;
   border-radius: 12px;
   background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .title {
@@ -82,7 +84,6 @@
   opacity: 0.9;
 }
 
-/* Acessibilidade */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -105,6 +106,7 @@
   border: none;
   background: #57534e;
   color: var(--button-text);
+  margin-bottom: 32px;
 }
 
 .btn:hover {
@@ -232,4 +234,24 @@ body.dark .theme-toggle {
 body.dark .option.selected {
   background-color: #57534e;
   color: #ffffff;
+}
+
+.progress {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 30px
+}
+
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--text-secondary);
+  opacity: 0.4;
+}
+
+.progress-dot.active {
+  background-color: var(--text-primary);
+  opacity: 1;
 }
