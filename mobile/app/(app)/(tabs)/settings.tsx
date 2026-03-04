@@ -12,7 +12,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Settings() {
-  const { theme, toggleTheme, isDark } = useTheme();
+  const { theme, toggleTheme, isDark, isColorBlind, toggleColorBlindMode } = useTheme();
   const { settings, update } = useCognitive();
   const { logout } = useAuth();
   const router = useRouter();
@@ -78,6 +78,14 @@ export default function Settings() {
             onValueChange={(value) =>
               update({ ...settings, reducedAnimations: value })
             }
+          />
+        </View>
+
+        <View style={styles.switchRow}>
+          <Subtitle>Modo daltônico</Subtitle>
+          <Switch
+            value={isColorBlind}
+            onValueChange={toggleColorBlindMode}
           />
         </View>
 

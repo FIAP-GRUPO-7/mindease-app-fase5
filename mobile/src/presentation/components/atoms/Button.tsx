@@ -28,8 +28,8 @@ export default function Button({
   const backgroundColor = disabled
     ? theme.border
     : isPrimary
-      ? theme.buttonPrimary
-      : theme.optionBackground;
+    ? theme.buttonPrimary
+    : theme.optionBackground;
 
   const textColor = disabled
     ? theme.textSecondary

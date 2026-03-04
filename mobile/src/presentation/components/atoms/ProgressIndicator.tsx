@@ -1,35 +1,53 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { ViewStyle } from 'react-native';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { ViewStyle } from "react-native";
 import { useTheme } from "@/presentation/theme/ThemeContext";
 
 type ProgressIndicatorProps = {
   current: number;
   total: number;
   style?: ViewStyle;
-  type?: 'bar' | 'dots';
+  type?: "bar" | "dots";
 };
 
-export function ProgressIndicator({ current, total, style, type = 'bar' }: ProgressIndicatorProps) {
+export function ProgressIndicator({
+  current,
+  total,
+  style,
+  type = "bar",
+}: ProgressIndicatorProps) {
   const { theme } = useTheme();
   const progress = Math.min(current / total, 1);
+  const activeColor = theme.active;
+  const inactiveColor = theme.inactive;
 
-  if (type === 'dots') {
+  if (type === "dots") {
     return (
       <View style={[styles.dotsContainer, style]}>
         {Array.from({ length: total }).map((_, index) => (
           <View
             key={index}
-            style={[styles.dot, { backgroundColor: theme.inactive }, index < current && { backgroundColor: theme.active }]}>
-          </View>
+            style={[
+              styles.dot,
+              { backgroundColor: inactiveColor },
+              index < current && { backgroundColor: activeColor },
+            ]}
+          ></View>
         ))}
       </View>
     );
   }
 
   return (
-    <View style={[styles.barContainer, style, { backgroundColor: theme.inactive }]}>
-      <View style={[styles.bar, { width: `${progress * 100}%`, backgroundColor: theme.active }]} /> 
+    <View
+      style={[styles.barContainer, style, { backgroundColor: inactiveColor }]}
+    >
+      <View
+        style={[
+          styles.bar,
+          { width: `${progress * 100}%`, backgroundColor: activeColor },
+        ]}
+      />
     </View>
   );
 }
@@ -37,17 +55,17 @@ export function ProgressIndicator({ current, total, style, type = 'bar' }: Progr
 const styles = StyleSheet.create({
   barContainer: {
     height: 10,
-    width: '100%',
+    width: "100%",
     borderRadius: 5,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   bar: {
-    height: '100%',
+    height: "100%",
   },
   dotsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   dot: {
     width: 10,

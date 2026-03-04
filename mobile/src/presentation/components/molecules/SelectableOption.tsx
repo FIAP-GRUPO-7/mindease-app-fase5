@@ -20,10 +20,8 @@ export function SelectableOption({ label, selected = false, onPress }: Props) {
       style={[
         styles.container,
         {
-          backgroundColor: selected
-            ? theme.optionSelected
-            : theme.optionBackground,
-          borderColor: theme.border,
+          backgroundColor: theme.optionBackground,
+          borderColor: selected ? theme.active : theme.border,
         },
       ]}
     >
@@ -32,7 +30,7 @@ export function SelectableOption({ label, selected = false, onPress }: Props) {
           <View
             style={[
               styles.selectedCircle,
-              { backgroundColor: theme.textPrimary },
+              { backgroundColor: theme.active },
             ]}
           >
             <Ionicons name="checkmark" size={16} color={theme.background} />

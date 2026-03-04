@@ -36,7 +36,7 @@ export default function BreathingIntro() {
       <ProgressIndicator
         current={3}
         total={3}
-        type={settings.progressType} // Define o tipo de progresso com base nas configurações
+        type={settings.progressType}
         style={{ marginBottom: 20 }}
       />
       <View style={styles.content}>
