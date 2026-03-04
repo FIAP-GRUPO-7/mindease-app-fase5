@@ -32,7 +32,7 @@ export default function CheckIn() {
         current={1}
         total={3}
         type={settings.progressType}
-        style={{ marginBottom: 20 }}
+        style={{ marginTop: 20 }}
       />
       <View style={styles.themeButton}>
         <ThemeToggleButton />

@@ -37,7 +37,7 @@ export default function BreathingIntro() {
         current={3}
         total={3}
         type={settings.progressType}
-        style={{ marginBottom: 20 }}
+        style={{ marginTop: 20 }}
       />
       <View style={styles.content}>
         <View style={styles.textContainer}>
@@ -69,7 +69,7 @@ export default function BreathingIntro() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, paddingHorizontal: 12 },
 
   content: {
     flex: 1,

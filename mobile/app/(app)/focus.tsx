@@ -42,7 +42,7 @@ export default function Focus() {
         current={2}
         total={3}
         type={settings.progressType}
-        style={{ marginBottom: 20 }}
+        style={{ marginTop: 20 }}
       />
       <View style={styles.content}>
         <Title>Do que você precisa?</Title>
@@ -77,7 +77,7 @@ export default function Focus() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, paddingHorizontal: 12 },
   content: {
     flex: 1,
     padding: 24,
