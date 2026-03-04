@@ -9,12 +9,16 @@ import { useTheme } from "@/presentation/theme/ThemeContext";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
+import settings from "./(tabs)/settings";
+import { useCognitive } from "@/application/cognitive/CognitiveContext";
 
 export default function CheckIn() {
   const { theme } = useTheme();
   const router = useRouter();
   const [selected, setSelected] = useState<EmotionalType | null>(null);
   const { setState } = useEmotional();
+  const { settings } = useCognitive(); // Importa as configurações para verificar o tipo de progresso
 
   const handleContinue = async () => {
     if (!selected) return;
@@ -23,7 +27,13 @@ export default function CheckIn() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>  
+      <ProgressIndicator
+        current={1}
+        total={3}
+        type={settings.progressType}
+        style={{ marginBottom: 20 }}
+      />
       <View style={styles.themeButton}>
         <ThemeToggleButton />
       </View>

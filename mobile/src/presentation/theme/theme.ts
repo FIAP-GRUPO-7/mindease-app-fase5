@@ -15,6 +15,9 @@ export const lightTheme = {
 
   icon: "#4A4A4A",
   statusbarBackground: "#E6E6E6",
+
+  active: "#6B6763", 
+  inactive: "#D0D0D0",
 };
 
 export const darkTheme = {
@@ -34,6 +37,9 @@ export const darkTheme = {
 
   icon: "#F5F5F5",
   statusbarBackground: "#1E1A17",
+
+  active: "#DADADA", // Cor para elementos ativos
+  inactive: "#3A342F", // Cor para elementos inativos
 };
 
 export type ThemeType = typeof lightTheme;

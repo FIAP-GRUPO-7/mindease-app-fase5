@@ -9,10 +9,13 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
+import { useCognitive } from "@/application/cognitive/CognitiveContext";
 
 export default function Focus() {
   const { theme } = useTheme();
   const { addFocus } = useFocus();
+  const { settings } = useCognitive(); // Importa as configurações para verificar o tipo de progresso
 
   const [selected, setSelected] = useState<FocusArea[]>([]);
 
@@ -35,6 +38,12 @@ export default function Focus() {
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.background }]}
     >
+      <ProgressIndicator
+        current={2}
+        total={3}
+        type={settings.progressType}
+        style={{ marginBottom: 20 }}
+      />
       <View style={styles.content}>
         <Title>Do que você precisa?</Title>
         <Subtitle>Escolha as áreas que deseja priorizar agora.</Subtitle>

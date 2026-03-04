@@ -21,6 +21,7 @@ export function CognitiveProvider({ children }: { children: React.ReactNode }) {
     complexity: "medium",
     focusMode: false,
     reducedAnimations: false,
+    progressType: "dots",
   });
 
   const [loading, setLoading] = useState(true);

@@ -4,4 +4,5 @@ export interface CognitiveSettings {
   complexity: ComplexityLevel;
   focusMode: boolean;
   reducedAnimations: boolean;
+  progressType: 'bar' | 'dots';
 }

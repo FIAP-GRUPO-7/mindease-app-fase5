@@ -4,7 +4,6 @@ import Button from "@/presentation/components/atoms/Button";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { Switch } from "@/presentation/components/atoms/Switch";
 import { Title } from "@/presentation/components/atoms/Title";
-import { SelectableCard } from "@/presentation/components/molecules/SelectableCard";
 import { useTheme } from "@/presentation/theme/ThemeContext";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { useRouter } from "expo-router";
@@ -46,19 +45,19 @@ export default function Settings() {
       >
         <Subtitle>Nível de complexidade</Subtitle>
 
-        <SelectableCard
-          label="Baixo"
-          selected={settings.complexity === "low"}
+        <Button
+          title="Baixo"
+          variant={settings.complexity === "low" ? "primary" : "secondary"}
           onPress={() => changeComplexity("low")}
         />
-        <SelectableCard
-          label="Médio"
-          selected={settings.complexity === "medium"}
+        <Button
+          title="Médio"
+          variant={settings.complexity === "medium" ? "primary" : "secondary"}
           onPress={() => changeComplexity("medium")}
         />
-        <SelectableCard
-          label="Alto"
-          selected={settings.complexity === "high"}
+        <Button
+          title="Alto"
+          variant={settings.complexity === "high" ? "primary" : "secondary"}
           onPress={() => changeComplexity("high")}
         />
 
@@ -87,6 +86,26 @@ export default function Settings() {
         <View style={styles.switchRow}>
           <Subtitle>Modo escuro</Subtitle>
           <Switch value={isDark} onValueChange={toggleTheme} />
+        </View>
+
+        <View style={styles.selectRow}>
+          <Subtitle>Progresso</Subtitle>
+          <View style={styles.selectContainer}>
+            <Button
+              title="Bolinhas"
+              variant={settings.progressType === "dots" ? "primary" : "secondary"}
+              onPress={async () => {
+                await update({ ...settings, progressType: "dots" });
+              }}
+            />
+            <Button
+              title="Barra"
+              variant={settings.progressType === "bar" ? "primary" : "secondary"}
+              onPress={async () => {
+                await update({ ...settings, progressType: "bar" });
+              }}
+            />
+          </View>
         </View>
 
         <View style={styles.logoutWrapper}>
@@ -124,5 +143,15 @@ const styles = StyleSheet.create({
   },
   logoutWrapper: {
     marginTop: 32,
+  },
+  selectRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  selectContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });
