@@ -31,7 +31,7 @@ export default function Focus() {
     if (selected.length === 0) return;
 
     await Promise.all(selected.map((area) => addFocus(area)));
-    router.replace("/(app)/BreathingIntro");
+    router.push("/(app)/BreathingIntro");
   };
 
   return (

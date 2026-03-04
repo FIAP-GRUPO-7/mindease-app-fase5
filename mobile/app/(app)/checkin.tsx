@@ -18,12 +18,12 @@ export default function CheckIn() {
   const router = useRouter();
   const [selected, setSelected] = useState<EmotionalType | null>(null);
   const { setState } = useEmotional();
-  const { settings } = useCognitive(); // Importa as configurações para verificar o tipo de progresso
+  const { settings } = useCognitive();
 
   const handleContinue = async () => {
     if (!selected) return;
     await setState(selected);
-    router.replace("/(app)/focus");
+    router.push("/(app)/focus");
   };
 
   return (

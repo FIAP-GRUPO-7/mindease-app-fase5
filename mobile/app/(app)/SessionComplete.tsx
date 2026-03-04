@@ -12,7 +12,7 @@ export default function SessionComplete() {
   const { theme } = useTheme();
 
   const handleReturn = () => {
-    router.replace("/(app)/dashboard");
+    router.push("/dashboard");
   };
 
   return (
