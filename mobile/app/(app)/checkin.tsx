@@ -37,19 +37,19 @@ export default function CheckIn() {
           </View>
 
           <SelectableCard
-            label="Ansioso"
+            label="Ansiedade"
             selected={selected === "anxious"}
             onPress={() => setSelected("anxious")}
           />
 
           <SelectableCard
-            label="Distraído"
+            label="Distração"
             selected={selected === "distracted"}
             onPress={() => setSelected("distracted")}
           />
 
           <SelectableCard
-            label="Sobrecarregado"
+            label="Sobrecarga"
             selected={selected === "overwhelmed"}
             onPress={() => setSelected("overwhelmed")}
           />

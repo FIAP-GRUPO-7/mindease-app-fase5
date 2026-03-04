@@ -1,6 +1,6 @@
 import { useTheme } from "@/presentation/theme/ThemeContext";
 import React from "react";
-import { Switch as RNSwitch, ViewStyle } from "react-native";
+import { Pressable, StyleSheet, View, ViewStyle } from "react-native";
 
 type Props = {
   value: boolean;
@@ -9,33 +9,54 @@ type Props = {
   style?: ViewStyle;
 };
 
-export function Switch({
-  value,
-  onValueChange,
-  disabled = false,
-  style,
-}: Props) {
+export function Switch({ value, onValueChange, disabled = false, style }: Props) {
   const { theme } = useTheme();
 
-  const isDark = theme.background === "#14110F";
-
-  const trackColorFalse = isDark ? "#5A524C" : theme.border;
-  const trackColorTrue = theme.buttonPrimary;
-
-  const thumbColor = isDark ? "#FFFFFF" : theme.surface;
+  const trackBg = value ? theme.buttonPrimary : theme.border;
+  const thumbBg = "#FFFFFF";
 
   return (
-    <RNSwitch
-      value={value}
-      onValueChange={onValueChange}
+    <Pressable
+      onPress={() => !disabled && onValueChange(!value)}
       disabled={disabled}
-      style={style}
-      trackColor={{
-        false: trackColorFalse,
-        true: trackColorTrue,
-      }}
-      thumbColor={thumbColor}
-      ios_backgroundColor={trackColorFalse}
-    />
+      style={[styles.wrap, style, disabled && { opacity: 0.6 }]}
+      accessibilityRole="switch"
+      accessibilityState={{ checked: value, disabled }}
+    >
+      <View style={[styles.track, { backgroundColor: trackBg }]}>
+        <View
+          style={[
+            styles.thumb,
+            { backgroundColor: thumbBg },
+            value ? styles.thumbOn : styles.thumbOff,
+          ]}
+        />
+      </View>
+    </Pressable>
   );
 }
+
+const styles = StyleSheet.create({
+  wrap: {
+    paddingVertical: 4,
+    paddingHorizontal: 2,
+  },
+  track: {
+    width: 46,
+    height: 26,
+    borderRadius: 999,
+    justifyContent: "center",
+    paddingHorizontal: 3,
+  },
+  thumb: {
+    width: 20,
+    height: 20,
+    borderRadius: 999,
+  },
+  thumbOff: {
+    alignSelf: "flex-start",
+  },
+  thumbOn: {
+    alignSelf: "flex-end",
+  },
+});
