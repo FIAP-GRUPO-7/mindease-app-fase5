@@ -19,10 +19,8 @@ export function SelectableCard({ label, selected = false, onPress }: Props) {
       style={[
         styles.container,
         {
-          backgroundColor: selected
-            ? theme.optionSelected
-            : theme.optionBackground,
-          borderColor: theme.border,
+          backgroundColor: theme.optionBackground,
+          borderColor: selected ? theme.active : theme.border,
         },
       ]}
     >

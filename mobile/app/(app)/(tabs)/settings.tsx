@@ -14,7 +14,9 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Settings() {
-  const { theme, toggleTheme, isDark } = useTheme();
+  const { theme, toggleTheme, isDark, isColorBlind, toggleColorBlindMode } =
+    useTheme();
+
   const { settings, update } = useCognitive();
   const { logout } = useAuth();
   const router = useRouter();
@@ -70,7 +72,9 @@ export default function Settings() {
             <Subtitle>Modo foco</Subtitle>
             <Switch
               value={settings.focusMode}
-              onValueChange={(value) => update({ ...settings, focusMode: value })}
+              onValueChange={(value) =>
+                update({ ...settings, focusMode: value })
+              }
             />
           </View>
 
@@ -84,11 +88,37 @@ export default function Settings() {
             />
           </View>
 
+          <View style={styles.switchRow}>
+            <Subtitle>Modo daltônico</Subtitle>
+            <Switch value={isColorBlind} onValueChange={toggleColorBlindMode} />
+          </View>
+
           <Subtitle style={styles.sectionTitle}>Aparência</Subtitle>
 
           <View style={styles.switchRow}>
             <Subtitle>Modo escuro</Subtitle>
             <Switch value={isDark} onValueChange={toggleTheme} />
+          </View>
+
+          <View style={styles.selectRow}>
+            <Subtitle>Progresso</Subtitle>
+
+            <View style={styles.selectContainer}>
+              <Button
+                title="Bolinhas"
+                variant={
+                  settings.progressType === "dots" ? "primary" : "secondary"
+                }
+                onPress={() => update({ ...settings, progressType: "dots" })}
+              />
+              <Button
+                title="Barra"
+                variant={
+                  settings.progressType === "bar" ? "primary" : "secondary"
+                }
+                onPress={() => update({ ...settings, progressType: "bar" })}
+              />
+            </View>
           </View>
 
           <View style={styles.logoutWrapper}>
@@ -122,6 +152,17 @@ const styles = StyleSheet.create({
   switchRow: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
+  },
+  selectRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 12,
+  },
+  selectContainer: {
+    flexDirection: "row",
+    gap: 8,
     alignItems: "center",
   },
   logoutWrapper: {

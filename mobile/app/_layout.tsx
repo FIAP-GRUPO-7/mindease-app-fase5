@@ -1,5 +1,8 @@
 import { AuthProvider } from "@/application/auth/AuthContext";
-import { CognitiveProvider } from "@/application/cognitive/CognitiveContext";
+import {
+  CognitiveProvider,
+  useCognitive,
+} from "@/application/cognitive/CognitiveContext";
 import { EmotionalProvider } from "@/application/emotional/EmotionalContext";
 import { FocusProvider } from "@/application/focus/FocusContext";
 import { TaskProvider } from "@/application/tasks/TaskContext";
@@ -13,6 +16,7 @@ import { useEffect } from "react";
 
 function AppLayout() {
   const { theme } = useTheme();
+  const { settings } = useCognitive();
 
   useEffect(() => {
     SystemUI.setBackgroundColorAsync(theme.background);
@@ -23,7 +27,12 @@ function AppLayout() {
   return (
     <>
       <StatusBar style={isDark ? "light" : "dark"} />
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          animation: settings.reducedAnimations ? "none" : "slide_from_right",
+        }}
+      />
     </>
   );
 }

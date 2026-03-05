@@ -1,6 +1,7 @@
 import { getBreathingPattern } from "@/application/breathing/getBreathingPattern";
 import { useEmotional } from "@/application/emotional/EmotionalContext";
 import { useFocus } from "@/application/focus/FocusContext";
+import { useCognitive } from "@/application/cognitive/CognitiveContext";
 import Button from "@/presentation/components/atoms/Button";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { Title } from "@/presentation/components/atoms/Title";
@@ -11,12 +12,14 @@ import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
 
 export default function BreathingIntro() {
   const { theme } = useTheme();
 
   const { state: emotionalState } = useEmotional();
   const { state: focusState } = useFocus();
+  const { settings } = useCognitive();
 
   const emotional = emotionalState?.type;
   const focus = focusState?.[0]?.area;
@@ -29,6 +32,14 @@ export default function BreathingIntro() {
 
   return (
     <SafeAreaView style={[styles.screen, { backgroundColor: theme.background }]}>
+
+      <ProgressIndicator
+        current={3}
+        total={3}
+        type={settings.progressType}
+        style={{ marginTop: 20 }}
+      />
+
       <ResponsiveContainer>
         <View style={styles.content}>
           <View style={styles.textContainer}>
@@ -50,7 +61,10 @@ export default function BreathingIntro() {
           </View>
 
           <View style={styles.buttonContainer}>
-            <Button title="Estou pronto para continuar" onPress={handleContinue} />
+            <Button
+              title="Estou pronto para continuar"
+              onPress={handleContinue}
+            />
           </View>
         </View>
       </ResponsiveContainer>
