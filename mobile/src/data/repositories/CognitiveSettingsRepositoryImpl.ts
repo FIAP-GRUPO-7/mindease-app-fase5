@@ -8,6 +8,7 @@ const defaultSettings: CognitiveSettings = {
   complexity: "medium",
   focusMode: false,
   reducedAnimations: false,
+  progressType: "dots",
 };
 
 export class CognitiveSettingsRepositoryImpl implements CognitiveSettingsRepository {

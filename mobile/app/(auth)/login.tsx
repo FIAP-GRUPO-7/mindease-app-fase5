@@ -2,6 +2,7 @@ import { useAuth } from "@/application/auth/AuthContext";
 import Button from "@/presentation/components/atoms/Button";
 import Input from "@/presentation/components/atoms/Input";
 import { Title } from "@/presentation/components/atoms/Title";
+import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
 import { useTheme } from "@/presentation/theme/ThemeContext";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -16,25 +17,39 @@ export default function Login() {
 
   const handleLogin = async () => {
     await login(name);
-    router.replace("/(app)/checkin");
+    router.push("/(app)/checkin");
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <Title>Welcome</Title>
+    <View style={[styles.screen, { backgroundColor: theme.background }]}>
+      <ResponsiveContainer>
+        <View style={styles.container}>
+          <Title>Welcome</Title>
 
-      <Input placeholder="Your name" value={name} onChangeText={setName} />
+          <Input
+            placeholder="Your name"
+            value={name}
+            onChangeText={setName}
+          />
 
-      <Button title="Continue" onPress={handleLogin} disabled={!name.trim()} />
+          <Button
+            title="Continue"
+            onPress={handleLogin}
+            disabled={!name.trim()}
+          />
+        </View>
+      </ResponsiveContainer>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingHorizontal: 24,
     gap: 20,
   },
 });

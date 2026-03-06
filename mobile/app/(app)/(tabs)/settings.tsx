@@ -4,6 +4,7 @@ import Button from "@/presentation/components/atoms/Button";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { Switch } from "@/presentation/components/atoms/Switch";
 import { Title } from "@/presentation/components/atoms/Title";
+import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
 import { SelectableCard } from "@/presentation/components/molecules/SelectableCard";
 import { useTheme } from "@/presentation/theme/ThemeContext";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
@@ -13,7 +14,9 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Settings() {
-  const { theme, toggleTheme, isDark } = useTheme();
+  const { theme, toggleTheme, isDark, isColorBlind, toggleColorBlindMode } =
+    useTheme();
+
   const { settings, update } = useCognitive();
   const { logout } = useAuth();
   const router = useRouter();
@@ -30,87 +33,116 @@ export default function Settings() {
 
   return (
     <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.background }]}
+      style={[styles.screen, { backgroundColor: theme.background }]}
       edges={["top", "left", "right"]}
     >
-      <View style={styles.header}>
-        <Title>Configurações</Title>
-      </View>
+      <ResponsiveContainer>
+        <View style={styles.header}>
+          <Title>Configurações</Title>
+        </View>
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={[
-          styles.content,
-          { paddingBottom: tabBarHeight + 32 },
-        ]}
-      >
-        <Subtitle>Nível de complexidade</Subtitle>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[
+            styles.content,
+            { paddingBottom: tabBarHeight + 32 },
+          ]}
+        >
+          <Subtitle>Nível de complexidade</Subtitle>
 
-        <SelectableCard
-          label="Baixo"
-          selected={settings.complexity === "low"}
-          onPress={() => changeComplexity("low")}
-        />
-        <SelectableCard
-          label="Médio"
-          selected={settings.complexity === "medium"}
-          onPress={() => changeComplexity("medium")}
-        />
-        <SelectableCard
-          label="Alto"
-          selected={settings.complexity === "high"}
-          onPress={() => changeComplexity("high")}
-        />
-
-        <Subtitle style={styles.sectionTitle}>Ajustes adicionais</Subtitle>
-
-        <View style={styles.switchRow}>
-          <Subtitle>Modo foco</Subtitle>
-          <Switch
-            value={settings.focusMode}
-            onValueChange={(value) => update({ ...settings, focusMode: value })}
+          <SelectableCard
+            label="Baixo"
+            selected={settings.complexity === "low"}
+            onPress={() => changeComplexity("low")}
           />
-        </View>
-
-        <View style={styles.switchRow}>
-          <Subtitle>Reduzir animações</Subtitle>
-          <Switch
-            value={settings.reducedAnimations}
-            onValueChange={(value) =>
-              update({ ...settings, reducedAnimations: value })
-            }
+          <SelectableCard
+            label="Médio"
+            selected={settings.complexity === "medium"}
+            onPress={() => changeComplexity("medium")}
           />
-        </View>
-
-        <Subtitle style={styles.sectionTitle}>Aparência</Subtitle>
-
-        <View style={styles.switchRow}>
-          <Subtitle>Modo escuro</Subtitle>
-          <Switch value={isDark} onValueChange={toggleTheme} />
-        </View>
-
-        <View style={styles.logoutWrapper}>
-          <Button
-            title="Sair da conta"
-            variant="secondary"
-            onPress={handleLogout}
+          <SelectableCard
+            label="Alto"
+            selected={settings.complexity === "high"}
+            onPress={() => changeComplexity("high")}
           />
-        </View>
-      </ScrollView>
+
+          <Subtitle style={styles.sectionTitle}>Ajustes adicionais</Subtitle>
+
+          <View style={styles.switchRow}>
+            <Subtitle>Modo foco</Subtitle>
+            <Switch
+              value={settings.focusMode}
+              onValueChange={(value) =>
+                update({ ...settings, focusMode: value })
+              }
+            />
+          </View>
+
+          <View style={styles.switchRow}>
+            <Subtitle>Reduzir animações</Subtitle>
+            <Switch
+              value={settings.reducedAnimations}
+              onValueChange={(value) =>
+                update({ ...settings, reducedAnimations: value })
+              }
+            />
+          </View>
+
+          <View style={styles.switchRow}>
+            <Subtitle>Modo daltônico</Subtitle>
+            <Switch value={isColorBlind} onValueChange={toggleColorBlindMode} />
+          </View>
+
+          <Subtitle style={styles.sectionTitle}>Aparência</Subtitle>
+
+          <View style={styles.switchRow}>
+            <Subtitle>Modo escuro</Subtitle>
+            <Switch value={isDark} onValueChange={toggleTheme} />
+          </View>
+
+          <View style={styles.selectRow}>
+            <Subtitle>Progresso</Subtitle>
+
+            <View style={styles.selectContainer}>
+              <Button
+                title="Bolinhas"
+                variant={
+                  settings.progressType === "dots" ? "primary" : "secondary"
+                }
+                onPress={() => update({ ...settings, progressType: "dots" })}
+              />
+              <Button
+                title="Barra"
+                variant={
+                  settings.progressType === "bar" ? "primary" : "secondary"
+                }
+                onPress={() => update({ ...settings, progressType: "bar" })}
+              />
+            </View>
+          </View>
+
+          <View style={styles.logoutWrapper}>
+            <Button
+              title="Sair da conta"
+              variant="secondary"
+              onPress={handleLogout}
+            />
+          </View>
+        </ScrollView>
+      </ResponsiveContainer>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
   },
   header: {
-    paddingHorizontal: 24,
     paddingTop: 16,
+    paddingBottom: 8,
   },
   content: {
-    paddingHorizontal: 24,
     paddingTop: 16,
     gap: 12,
   },
@@ -120,6 +152,17 @@ const styles = StyleSheet.create({
   switchRow: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
+  },
+  selectRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 12,
+  },
+  selectContainer: {
+    flexDirection: "row",
+    gap: 8,
     alignItems: "center",
   },
   logoutWrapper: {

@@ -12,11 +12,10 @@ export default function AppTabsLayout() {
         tabBarStyle: {
           backgroundColor: theme.background,
           borderTopColor: theme.border,
+          height: 70, paddingTop: 6, paddingBottom: 8,
         },
-        tabBarActiveTintColor: theme.buttonPrimary,
-        tabBarInactiveTintColor: theme.textSecondary,
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 12, marginBottom: 4,
         },
       }}
     >

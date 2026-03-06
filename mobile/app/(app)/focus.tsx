@@ -9,10 +9,15 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
+import { useCognitive } from "@/application/cognitive/CognitiveContext";
+import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
+import { ThemeToggleButton } from "@/presentation/components/atoms/ThemeToggleButton";
 
 export default function Focus() {
   const { theme } = useTheme();
   const { addFocus } = useFocus();
+  const { settings } = useCognitive();
 
   const [selected, setSelected] = useState<FocusArea[]>([]);
 
@@ -28,50 +33,69 @@ export default function Focus() {
     if (selected.length === 0) return;
 
     await Promise.all(selected.map((area) => addFocus(area)));
-    router.replace("/(app)/BreathingIntro");
+    router.push("/BreathingIntro");
   };
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.background }]}
-    >
-      <View style={styles.content}>
-        <Title>Do que você precisa?</Title>
-        <Subtitle>Escolha as áreas que deseja priorizar agora.</Subtitle>
-
-        <SelectableOption
-          label="Clareza"
-          selected={selected.includes("clarity")}
-          onPress={() => toggleSelection("clarity")}
-        />
-
-        <SelectableOption
-          label="Foco"
-          selected={selected.includes("focus")}
-          onPress={() => toggleSelection("focus")}
-        />
-
-        <SelectableOption
-          label="Calma"
-          selected={selected.includes("calm")}
-          onPress={() => toggleSelection("calm")}
-        />
-
-        <Button
-          title="Continuar"
-          onPress={handleContinue}
-          disabled={selected.length === 0}
-        />
+    <SafeAreaView style={[styles.screen, { backgroundColor: theme.background }]}>
+      <View style={styles.themeButton}>
+        <ThemeToggleButton />
       </View>
+
+      <ResponsiveContainer>
+        <ProgressIndicator
+          current={2}
+          total={3}
+          type={settings.progressType}
+          style={{ marginTop: 20 }}
+        />
+
+        <View style={styles.content}>
+          <Title>Do que você precisa?</Title>
+          <Subtitle>Escolha as áreas que deseja priorizar agora.</Subtitle>
+
+          <SelectableOption
+            label="Clareza"
+            selected={selected.includes("clarity")}
+            onPress={() => toggleSelection("clarity")}
+          />
+
+          <SelectableOption
+            label="Foco"
+            selected={selected.includes("focus")}
+            onPress={() => toggleSelection("focus")}
+          />
+
+          <SelectableOption
+            label="Calma"
+            selected={selected.includes("calm")}
+            onPress={() => toggleSelection("calm")}
+          />
+
+          <Button
+            title="Continuar"
+            onPress={handleContinue}
+            disabled={selected.length === 0}
+          />
+        </View>
+      </ResponsiveContainer>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  screen: { flex: 1 },
+
+  themeButton: {
+    position: "absolute",
+    top: 60,
+    right: 24,
+    zIndex: 10,
+  },
+
   content: {
     flex: 1,
-    padding: 24,
+    paddingVertical: 24,
     justifyContent: "center",
     gap: 16,
   },
