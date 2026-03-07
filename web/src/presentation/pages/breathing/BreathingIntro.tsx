@@ -2,20 +2,21 @@ import { getBreathingPattern } from "@/application/breathing/getBreathingPattern
 import { useEmotional } from "@/application/emotional/EmotionalContext";
 import { useFocus } from "@/application/focus/FocusContext";
 import { useCognitive } from "@/application/cognitive/CognitiveContext";
+
 import Button from "@/presentation/components/atoms/Button";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { Title } from "@/presentation/components/atoms/Title";
 import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
 import { BreathingOrb } from "@/presentation/components/organisms/BreathingOrb";
-import { useTheme } from "@/presentation/theme/ThemeContext";
-import { router } from "expo-router";
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
+
+import { useTheme } from "@/presentation/theme/ThemeContext";
+
+import { useNavigate } from "react-router-dom";
 
 export default function BreathingIntro() {
   const { theme } = useTheme();
+  const navigate = useNavigate();
 
   const { state: emotionalState } = useEmotional();
   const { state: focusState } = useFocus();
@@ -27,86 +28,46 @@ export default function BreathingIntro() {
   const pattern = getBreathingPattern(emotional ?? "anxious", focus ?? "calm");
 
   const handleContinue = () => {
-    router.push("/(app)/SessionComplete");
+    navigate("/session-complete");
   };
 
   return (
-    <SafeAreaView style={[styles.screen, { backgroundColor: theme.background }]}>
+    <div style={{ backgroundColor: theme.background }} className="min-h-screen">
       <ResponsiveContainer>
         <ProgressIndicator
           current={3}
           total={3}
           type={settings.progressType}
-          style={{ marginTop: 20 }}
+          className="mt-5"
         />
 
-        <View style={styles.content}>
-          <View style={styles.textContainer}>
-            <Title style={styles.title}>Respire com calma</Title>
+        <div className="flex flex-col justify-between min-h-screen py-[60px]">
+          <div className="flex flex-col items-center gap-2 mt-10">
+            <Title>Respire com calma</Title>
 
-            <Subtitle style={styles.subtitle}>
-              Inspire lentamente pelo nariz enquanto o círculo cresce.{"\n"}
+            <Subtitle>
+              Inspire lentamente pelo nariz enquanto o círculo cresce. <br />
               Solte o ar pela boca enquanto ele se recolhe.
             </Subtitle>
-          </View>
+          </div>
 
-          <View style={styles.orbContainer}>
+          <div className="flex justify-center items-center flex-1">
             <BreathingOrb
               inhaleDuration={pattern.inhale}
               exhaleDuration={pattern.exhale}
               pauseDuration={pattern.pause}
               size={200}
             />
-          </View>
+          </div>
 
-          <View style={styles.buttonContainer}>
+          <div className="pb-6">
             <Button
               title="Estou pronto para continuar"
-              onPress={handleContinue}
+              onClick={handleContinue}
             />
-          </View>
-        </View>
+          </div>
+        </div>
       </ResponsiveContainer>
-    </SafeAreaView>
+    </div>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: { flex: 1 },
-
-  content: {
-    flex: 1,
-    paddingVertical: 60,
-    justifyContent: "space-between",
-  },
-
-  textContainer: {
-    alignItems: "center",
-    gap: 8,
-    marginTop: 40,
-  },
-
-  title: {
-    textAlign: "center",
-  },
-
-  subtitle: {
-    textAlign: "center",
-  },
-
-  benefit: {
-    textAlign: "center",
-    marginBottom: 24,
-    fontSize: 14,
-  },
-
-  orbContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  buttonContainer: {
-    paddingBottom: 24,
-  },
-});

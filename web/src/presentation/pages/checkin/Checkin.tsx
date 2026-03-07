@@ -1,6 +1,7 @@
 import { useEmotional } from "@/application/emotional/EmotionalContext";
 import { useCognitive } from "@/application/cognitive/CognitiveContext";
-import { EmotionalType } from "@/domain/entities/EmotionalState";
+import type { EmotionalType } from "@/domain/entities/EmotionalState";
+
 import Button from "@/presentation/components/atoms/Button";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { ThemeToggleButton } from "@/presentation/components/atoms/ThemeToggleButton";
@@ -9,13 +10,14 @@ import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
 import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
 import { SelectableCard } from "@/presentation/components/molecules/SelectableCard";
 import { useTheme } from "@/presentation/theme/ThemeContext";
-import { useRouter } from "expo-router";
-import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function CheckIn() {
   const { theme } = useTheme();
-  const router = useRouter();
+  const navigate = useNavigate();
+
   const [selected, setSelected] = useState<EmotionalType | null>(null);
 
   const { setState } = useEmotional();
@@ -23,76 +25,63 @@ export default function CheckIn() {
 
   const handleContinue = async () => {
     if (!selected) return;
+
     await setState(selected);
-    router.push("/(app)/focus");
+    navigate("/focus");
   };
 
   return (
-    <View style={[styles.screen, { backgroundColor: theme.background }]}>
-      <View style={styles.themeButton}>
+    <div
+      style={{ backgroundColor: theme.background }}
+      className="min-h-screen relative"
+    >
+      <div className="absolute top-[60px] right-6 z-10">
         <ThemeToggleButton />
-      </View>
+      </div>
 
       <ResponsiveContainer>
         <ProgressIndicator
           current={1}
           total={3}
           type={settings.progressType}
-          style={{ marginTop: 20 }}
+          className="mt-5"
         />
 
-        <View style={styles.content}>
-          <View style={styles.header}>
+        <div className="flex flex-col justify-center gap-4 min-h-screen">
+          <div className="mb-10">
             <Title>Como você está agora?</Title>
-            <Subtitle>Escolha a opção que mais combina com você agora.</Subtitle>
-          </View>
+
+            <Subtitle>
+              Escolha a opção que mais combina com você agora.
+            </Subtitle>
+          </div>
 
           <SelectableCard
             label="Ansiedade"
             selected={selected === "anxious"}
-            onPress={() => setSelected("anxious")}
+            onClick={() => setSelected("anxious")}
           />
 
           <SelectableCard
             label="Distração"
             selected={selected === "distracted"}
-            onPress={() => setSelected("distracted")}
+            onClick={() => setSelected("distracted")}
           />
 
           <SelectableCard
             label="Sobrecarga"
             selected={selected === "overwhelmed"}
-            onPress={() => setSelected("overwhelmed")}
+            onClick={() => setSelected("overwhelmed")}
           />
 
           <Button
             title="Continuar"
-            onPress={handleContinue}
+            onClick={handleContinue}
             disabled={!selected}
-            style={{ marginTop: 16 }}
+            className="mt-4"
           />
-        </View>
+        </div>
       </ResponsiveContainer>
-    </View>
+    </div>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-  },
-  themeButton: {
-    position: "absolute",
-    top: 60,
-    right: 24,
-    zIndex: 10,
-  },
-  content: {
-    flex: 1,
-    justifyContent: "center",
-    gap: 16,
-  },
-  header: {
-    marginBottom: 40,
-  },
-});
