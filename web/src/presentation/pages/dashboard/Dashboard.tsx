@@ -31,19 +31,25 @@ export default function Dashboard() {
   };
 
   return (
-    <div style={{ backgroundColor: theme.background }} className="min-h-screen">
+    <div style={{ backgroundColor: theme.background }}>
       <ResponsiveContainer>
         <div
-          className={`flex flex-col pt-8 gap-5 ${
-            isLow ? "justify-center min-h-screen" : ""
+          className={`flex flex-col gap-6 py-10 ${
+            isLow ? "justify-center min-h-[70vh]" : ""
           }`}
         >
-          {!isLow && <Title>Olá, {user?.name}</Title>}
+          {!isLow && (
+            <div className="text-center">
+              <Title>Olá, {user?.name}</Title>
+            </div>
+          )}
 
           {isHigh && state && (
-            <Subtitle className="opacity-80">
-              {emotionalMessage[state.type]}
-            </Subtitle>
+            <div className="text-center">
+              <Subtitle className="opacity-80">
+                {emotionalMessage[state.type]}
+              </Subtitle>
+            </div>
           )}
 
           <div
@@ -51,7 +57,7 @@ export default function Dashboard() {
               backgroundColor: theme.card,
               borderColor: theme.border,
             }}
-            className="p-7 rounded-[24px] border flex flex-col gap-3"
+            className="mx-auto w-full max-w-[520px] rounded-[24px] border p-8 flex flex-col gap-4 text-center"
           >
             <Title>Sessão de foco</Title>
 
@@ -59,7 +65,7 @@ export default function Dashboard() {
 
             <Button
               title="Iniciar agora"
-              className="mt-4"
+              className="mt-3"
               onClick={onStartFocusSession}
             />
           </div>

@@ -37,6 +37,7 @@ export default function Button({
       disabled={disabled}
       style={{ backgroundColor }}
       className={`
+        w-full
         px-8 py-4
         rounded-[18px]
         flex items-center justify-center

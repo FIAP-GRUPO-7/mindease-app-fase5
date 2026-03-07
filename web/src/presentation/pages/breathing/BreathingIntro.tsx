@@ -33,14 +33,14 @@ export default function BreathingIntro() {
 
   return (
     <div style={{ backgroundColor: theme.background }} className="min-h-screen">
-      <ProgressIndicator
-        current={3}
-        total={3}
-        type={settings.progressType}
-        className="mt-5"
-      />
-
       <ResponsiveContainer>
+        <ProgressIndicator
+          current={3}
+          total={3}
+          type={settings.progressType}
+          className="mt-5"
+        />
+
         <div className="flex flex-col justify-between min-h-screen py-[60px]">
           <div className="flex flex-col items-center gap-2 mt-10">
             <Title>Respire com calma</Title>

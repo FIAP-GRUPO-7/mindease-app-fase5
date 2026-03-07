@@ -32,15 +32,14 @@ export default function BreathingIntro() {
 
   return (
     <SafeAreaView style={[styles.screen, { backgroundColor: theme.background }]}>
-
-      <ProgressIndicator
-        current={3}
-        total={3}
-        type={settings.progressType}
-        style={{ marginTop: 20 }}
-      />
-
       <ResponsiveContainer>
+        <ProgressIndicator
+          current={3}
+          total={3}
+          type={settings.progressType}
+          style={{ marginTop: 20 }}
+        />
+
         <View style={styles.content}>
           <View style={styles.textContainer}>
             <Title style={styles.title}>Respire com calma</Title>

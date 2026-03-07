@@ -29,18 +29,18 @@ export default function CheckIn() {
 
   return (
     <View style={[styles.screen, { backgroundColor: theme.background }]}>
-      <ProgressIndicator
-        current={1}
-        total={3}
-        type={settings.progressType}
-        style={{ marginTop: 20 }}
-      />
-
       <View style={styles.themeButton}>
         <ThemeToggleButton />
       </View>
 
       <ResponsiveContainer>
+        <ProgressIndicator
+          current={1}
+          total={3}
+          type={settings.progressType}
+          style={{ marginTop: 20 }}
+        />
+
         <View style={styles.content}>
           <View style={styles.header}>
             <Title>Como você está agora?</Title>
@@ -80,7 +80,6 @@ export default function CheckIn() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingHorizontal: 12,
   },
   themeButton: {
     position: "absolute",

@@ -19,11 +19,13 @@ export default function ResponsiveContainer({ children }: Props) {
 
   return (
     <div
-      className="w-full mx-auto flex-1"
+      className="w-full mx-auto flex-1 flex flex-col"
       style={{
         maxWidth: isDesktop ? 600 : "100%",
         paddingLeft: isDesktop ? 32 : 16,
         paddingRight: isDesktop ? 32 : 16,
+        paddingTop: isDesktop ? 24 : 16,
+        boxSizing: "border-box",
       }}
     >
       {children}

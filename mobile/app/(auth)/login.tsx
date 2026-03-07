@@ -24,16 +24,16 @@ export default function Login() {
     <View style={[styles.screen, { backgroundColor: theme.background }]}>
       <ResponsiveContainer>
         <View style={styles.container}>
-          <Title>Welcome</Title>
+          <Title>QUE BOM TE VER</Title>
 
           <Input
-            placeholder="Your name"
+            placeholder="Como posso te chamar?"
             value={name}
             onChangeText={setName}
           />
 
           <Button
-            title="Continue"
+            title="Começar"
             onPress={handleLogin}
             disabled={!name.trim()}
           />

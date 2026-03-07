@@ -24,16 +24,16 @@ export default function Login() {
     <div style={{ backgroundColor: theme.background }} className="min-h-screen">
       <ResponsiveContainer>
         <div className="flex flex-col justify-center gap-5 min-h-screen">
-          <Title>Welcome</Title>
+          <Title>QUE BOM TE VER</Title>
 
           <Input
-            placeholder="Your name"
+            placeholder="Como posso te chamar?"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
 
           <Button
-            title="Continue"
+            title="Começar"
             onClick={handleLogin}
             disabled={!name.trim()}
           />

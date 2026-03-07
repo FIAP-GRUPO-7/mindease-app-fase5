@@ -33,20 +33,20 @@ export default function CheckIn() {
   return (
     <div
       style={{ backgroundColor: theme.background }}
-      className="min-h-screen px-3 relative"
+      className="min-h-screen relative"
     >
-      <ProgressIndicator
-        current={1}
-        total={3}
-        type={settings.progressType}
-        className="mt-5"
-      />
-
       <div className="absolute top-[60px] right-6 z-10">
         <ThemeToggleButton />
       </div>
 
       <ResponsiveContainer>
+        <ProgressIndicator
+          current={1}
+          total={3}
+          type={settings.progressType}
+          className="mt-5"
+        />
+
         <div className="flex flex-col justify-center gap-4 min-h-screen">
           <div className="mb-10">
             <Title>Como você está agora?</Title>

@@ -1,42 +1,52 @@
 # MindEase — Cognitive Accessibility App
 
-MindEase é uma aplicação projetada para **reduzir sobrecarga cognitiva em ambientes digitais**, oferecendo uma experiência guiada, previsível e adaptável para usuários que enfrentam desafios de foco, ansiedade ou processamento de informação.
+MindEase é uma aplicação projetada para **reduzir a sobrecarga cognitiva em ambientes digitais**, oferecendo uma experiência **guiada, previsível e adaptável** para usuários que enfrentam desafios relacionados a foco, ansiedade ou processamento de informação.
 
-O projeto foi desenvolvido no contexto do **Hackathon da Pós-Graduação em Front-End Engineering da FIAP**, com foco em **acessibilidade cognitiva e arquitetura limpa**.
+O projeto foi desenvolvido no contexto do **Hackathon da Pós-Graduação em Front-End Engineering da FIAP**, com foco em **acessibilidade cognitiva, experiência do usuário e arquitetura limpa**.
 
 ---
 
 # Problema
 
-Muitas plataformas digitais criam **sobrecarga mental** devido a:
+Muitas plataformas digitais acabam gerando **sobrecarga mental**, causada principalmente por:
 
-- Excesso de informação na interface
-- Interfaces complexas e pouco previsíveis
-- Falta de suporte para foco e organização mental
-- Estímulos visuais excessivos
+* Excesso de informação na interface
+* Interfaces complexas e pouco previsíveis
+* Falta de suporte para foco e organização mental
+* Estímulos visuais excessivos
+* Fluxos de interação pouco orientados
 
 Esse problema impacta especialmente pessoas com:
 
-- TDAH
-- TEA (Autismo)
-- Dislexia
-- Burnout
-- Ansiedade digital
-- Sobrecarga cognitiva
+* TDAH
+* TEA (Transtorno do Espectro Autista)
+* Dislexia
+* Ansiedade digital
+* Burnout
+* Sobrecarga cognitiva
+
+Como consequência, usuários podem experimentar **fadiga mental, dificuldade de concentração e aumento do estresse durante o uso de sistemas digitais**.
 
 ---
 
 # Solução
 
-MindEase propõe uma interface **mínima, guiada e adaptativa**, que reduz a fadiga de decisão e ajuda o usuário a reorganizar seu estado cognitivo antes de iniciar uma tarefa.
+MindEase propõe uma interface **minimalista, guiada e adaptativa**, projetada para reduzir a fadiga de decisão e ajudar o usuário a reorganizar seu estado cognitivo antes de iniciar uma atividade.
+
+A experiência foi construída com base em princípios de **acessibilidade cognitiva**, priorizando:
+
+* Simplicidade
+* Previsibilidade
+* Redução de estímulos
+* Orientação gradual
 
 O fluxo principal do aplicativo segue três etapas:
 
 1. **Check-in emocional**
-2. **Definição de foco**
+2. **Definição de foco cognitivo**
 3. **Sessão guiada de respiração**
 
-A experiência se adapta ao nível de complexidade configurado pelo usuário, permitindo diferentes níveis de estímulo visual e informação.
+A experiência pode ser **adaptada ao perfil cognitivo do usuário**, ajustando níveis de complexidade e estímulos visuais.
 
 ---
 
@@ -44,31 +54,37 @@ A experiência se adapta ao nível de complexidade configurado pelo usuário, pe
 
 ## Check-in Cognitivo
 
-O usuário indica como está se sentindo no momento:
+O usuário informa como está se sentindo no momento:
 
-- Ansiedade
-- Distração
-- Sobrecarga
+* Ansiedade
+* Distração
+* Sobrecarga
 
-Isso permite adaptar a experiência da aplicação.
+Essa etapa permite que a aplicação adapte a experiência ao estado atual do usuário.
 
 ---
 
 ## Definição de Prioridade Cognitiva
 
-O usuário seleciona o que precisa no momento:
+Após o check-in, o usuário seleciona o que precisa naquele momento:
 
-- Clareza
-- Foco
-- Calma
+* Clareza
+* Foco
+* Calma
+
+Essa informação influencia a forma como a sessão guiada será conduzida.
 
 ---
 
-## Respiração Guiada
+## Sessão de Respiração Guiada
 
-O aplicativo inicia uma sessão de respiração guiada para reduzir estresse e reorganizar a atenção do usuário.
+O aplicativo inicia uma sessão de respiração guiada para ajudar o usuário a:
 
-A interface acompanha o ritmo da respiração por meio de animações suaves.
+* Reduzir estresse
+* Reorganizar a atenção
+* Estabilizar o ritmo cognitivo
+
+A interface acompanha o ritmo da respiração por meio de **animações suaves e previsíveis**.
 
 ---
 
@@ -76,28 +92,40 @@ A interface acompanha o ritmo da respiração por meio de animações suaves.
 
 O usuário pode ajustar o nível de complexidade da interface:
 
-- **Baixo** → interface mínima, foco no essencial
-- **Médio** → equilíbrio entre orientação e simplicidade
-- **Alto** → interface mais informativa
+* **Baixo** → interface mínima e foco no essencial
+* **Médio** → equilíbrio entre orientação e simplicidade
+* **Alto** → interface mais informativa
 
-Isso permite adaptar a aplicação a diferentes perfis cognitivos.
+Esse recurso permite adaptar a aplicação a diferentes perfis cognitivos.
 
 ---
 
 ## Configurações de Acessibilidade
 
-O usuário pode personalizar a experiência com:
+A aplicação inclui opções voltadas à personalização da experiência cognitiva:
 
-- Modo foco
-- Redução de animações
-- Tema claro / escuro
-- Nível de complexidade da interface
+* Modo foco
+* Redução de animações
+* Tema claro / escuro
+* Modo daltônico
+* Ajuste de complexidade da interface
+
+Essas configurações permitem que o usuário **reduza estímulos ou aumente suporte visual conforme necessário**.
+
+---
+
+# Plataformas
+
+O projeto possui duas aplicações dentro do mesmo repositório:
+
+* 📱 **Mobile** — React Native + Expo
+* 🌐 **Web** — React + Vite
 
 ---
 
 # Arquitetura
 
-O projeto segue princípios de **Clean Architecture**, com separação clara entre camadas:
+O projeto segue princípios inspirados em **Clean Architecture**, garantindo separação clara entre camadas e responsabilidades.
 
 ```
 src
@@ -111,47 +139,66 @@ src
       Componentes e interface do usuário
 ```
 
-Essa estrutura garante que o domínio permaneça **independente de frameworks** e facilita manutenção, testes e evolução do sistema.
+Essa abordagem permite:
+
+* Desacoplamento entre domínio e interface
+* Maior testabilidade
+* Facilidade de manutenção
+* Evolução independente das camadas
 
 ---
 
 # Stack Tecnológica
 
-- **React Native**
-- **Expo**
-- **TypeScript**
-- **Expo Router**
-- **Context API**
-- **Clean Architecture**
+O projeto foi desenvolvido utilizando:
+
+* **React Native**
+* **Expo**
+* **React**
+* **Vite**
+* **TypeScript**
+* **Expo Router**
+* **React Router**
+* **Context API**
+* **Clean Architecture**
 
 A aplicação roda em:
 
-- **Mobile (Android / iOS)**
-- **Web (via Expo Web)**
+* **Mobile (Android / iOS)**
+* **Web**
 
 ---
 
 # Estrutura do Projeto
 
 ```
-docs/
-    Documentação conceitual e arquitetural do projeto
-
-mobile/
-    Aplicação React Native
-
-src/
-    Camadas de domínio e aplicação
-
-figma/
-    Referência visual da interface
+mindease-app-fase5/
+├── docs/
+│   ├── 01_conceito.md
+│   ├── 02_fluxo.md
+│   ├── 03_arquitetura.md
+│   ├── 04_stack.md
+│   ├── 05_responsibilities.md
+│   └── 06_design-system.md
+│
+├── figma/
+│   Referência visual da interface
+│
+├── mobile/
+│   Aplicação React Native (Expo)
+│
+├── web/
+│   Aplicação Web (React + Vite)
+│
+└── src/
+    Camadas de domínio e aplicação compartilhadas
 ```
 
 ---
 
 # Documentação
 
-A documentação completa do projeto está disponível em:
+A documentação conceitual e arquitetural do projeto está disponível em:
 
 ```
 docs/
@@ -163,17 +210,29 @@ docs/
  └── 06_design-system.md
 ```
 
+Esses documentos descrevem:
+
+* O conceito da solução
+* O fluxo de experiência do usuário
+* Decisões arquiteturais
+* Organização das responsabilidades do sistema
+* Princípios do design system utilizado
+
 ---
 
 # Referência Visual
 
-Figma do projeto:
+Protótipo da interface no Figma:
 
 https://www.figma.com/design/mKJU3AbHWYCCyqwy2INsAt/mindeasy-app-fase5
 
 ---
 
 # Como Rodar o Projeto
+
+O projeto possui duas aplicações independentes: **mobile** e **web**.
+
+## Rodar Aplicação Mobile
 
 Instale as dependências:
 
@@ -182,17 +241,37 @@ cd mobile
 npm install
 ```
 
-Iniciar aplicação:
+Inicie o projeto:
 
 ```
 npm start
 ```
 
-Rodar versão web:
+A aplicação pode ser executada em:
+
+* Android (Expo Go)
+* iOS (Expo Go)
+* Emuladores
+* Navegador via Expo Web
+
+---
+
+## Rodar Aplicação Web
+
+Instale as dependências:
 
 ```
-npm run web
+cd web
+npm install
 ```
+
+Inicie o servidor de desenvolvimento:
+
+```
+npm run dev
+```
+
+A aplicação será executada no navegador.
 
 ---
 
@@ -204,4 +283,4 @@ Projeto desenvolvido como parte do **Hackathon da FIAP — Pós-Graduação em F
 
 # Licença
 
-Projeto acadêmico desenvolvido para fins educacionais.
+Projeto acadêmico desenvolvido para **fins educacionais**.

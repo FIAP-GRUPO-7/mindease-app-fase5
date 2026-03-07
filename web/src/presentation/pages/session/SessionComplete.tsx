@@ -18,20 +18,25 @@ export default function SessionComplete() {
   return (
     <div style={{ backgroundColor: theme.background }} className="min-h-screen">
       <ResponsiveContainer>
-        <div className="flex flex-col justify-between py-6 min-h-screen">
-          <div className="flex flex-col items-center justify-center flex-1 gap-4 text-center">
-            <CheckIndicator size={90} />
+        <div className="flex flex-col py-6">
+          <div
+            className="flex flex-col items-center justify-between text-center"
+            style={{ minHeight: "78vh" }}
+          >
+            <div className="flex-1 flex flex-col items-center justify-center gap-4">
+              <CheckIndicator size={90} />
 
-            <Title>Muito bem</Title>
+              <Title>Muito bem</Title>
 
-            <Subtitle className="opacity-70 px-4">
-              Você concluiu esta sessão. Leve esse momento de calma com você ao
-              longo do dia.
-            </Subtitle>
-          </div>
+              <Subtitle className="opacity-70 px-4 max-w-lg">
+                Você concluiu esta sessão. Leve esse momento de calma com você ao
+                longo do dia.
+              </Subtitle>
+            </div>
 
-          <div className="pb-6">
-            <Button title="Voltar ao início" onClick={handleReturn} />
+            <div className="w-full max-w-md pb-4">
+              <Button title="Voltar ao início" onClick={handleReturn} />
+            </div>
           </div>
         </div>
       </ResponsiveContainer>

@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import TabsLayout from "../layouts/TabsLayout";
 import AppLayout from "../layouts/AppLayout";
@@ -13,6 +13,11 @@ import Focus from "../pages/focus/Focus";
 import SessionComplete from "../pages/session/SessionComplete";
 
 export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigate to="/login" replace />,
+  },
+
   {
     path: "/login",
     element: <Login />,
