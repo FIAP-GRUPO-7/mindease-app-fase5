@@ -228,22 +228,27 @@ https://www.figma.com/design/mKJU3AbHWYCCyqwy2INsAt/mindeasy-app-fase5
 
 ---
 
-# Como Rodar o Projeto
+## Como Executar o Projeto Localmente
 
-O projeto possui duas aplicações independentes: **mobile** e **web**.
+1. Clone o repositório:
 
-## Rodar Aplicação Mobile
-
-Instale as dependências:
-
+```bash
+git clone https://github.com/FIAP-GRUPO-7/mindease-app-fase5.git
+cd mindease-app-fase5
 ```
+
+2. Instale as dependências de cada aplicação.
+
+### Aplicação Mobile
+
+```bash
 cd mobile
 npm install
 ```
 
 Inicie o projeto:
 
-```
+```bash
 npm start
 ```
 
@@ -256,18 +261,16 @@ A aplicação pode ser executada em:
 
 ---
 
-## Rodar Aplicação Web
+### Aplicação Web
 
-Instale as dependências:
-
-```
+```bash
 cd web
 npm install
 ```
 
 Inicie o servidor de desenvolvimento:
 
-```
+```bash
 npm run dev
 ```
 
