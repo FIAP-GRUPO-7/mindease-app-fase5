@@ -220,7 +220,10 @@ Esses documentos descrevem:
 
 ---
 
-# Referência Visual
+## Demonstração do Projeto
+[Assista à apresentação completa no Google Drive](https://drive.google.com/file/d/15moVPwNkhSVvne8INn3S1evhY-dyQ_G3/view?usp=sharing)
+
+---
 
 Protótipo da interface no Figma:
 
