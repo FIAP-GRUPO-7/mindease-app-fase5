@@ -7,9 +7,24 @@ import { Title } from "@/presentation/components/atoms/Title";
 import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
 import { useTheme } from "@/presentation/theme/ThemeContext";
 import { router } from "expo-router";
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useEffect, useRef } from "react";
+import {
+  Animated,
+  Easing,
+  LayoutAnimation,
+  Platform,
+  StyleSheet,
+  UIManager,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 export default function Dashboard() {
   const { theme } = useTheme();
@@ -25,10 +40,34 @@ export default function Dashboard() {
 
   const isLow = settings.complexity === "low";
   const isHigh = settings.complexity === "high";
+  const isFocusMode = settings.focusMode;
+
+  const fadeAnim = useRef(new Animated.Value(isFocusMode ? 1 : 0)).current;
+
+  useEffect(() => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+
+    Animated.timing(fadeAnim, {
+      toValue: isFocusMode ? 1 : 0,
+      duration: settings.reducedAnimations ? 0 : 250,
+      easing: Easing.out(Easing.ease),
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim, isFocusMode, settings.reducedAnimations]);
 
   const onStartFocusSession = () => {
     router.replace("/checkin");
   };
+
+  const supportOpacity = fadeAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [1, 0],
+  });
+
+  const cardScale = fadeAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [1, 1.02],
+  });
 
   return (
     <SafeAreaView
@@ -36,34 +75,68 @@ export default function Dashboard() {
       edges={["top", "left", "right"]}
     >
       <ResponsiveContainer>
-        <View style={[styles.content, isLow && styles.centeredContent]}>
-          {!isLow && <Title>Olá, {user?.name}</Title>}
+        <View
+          style={[
+            styles.content,
+            (isLow || isFocusMode) && styles.centeredContent,
+          ]}
+        >
+          {!isLow && !isFocusMode && <Title>Olá, {user?.name}</Title>}
 
-          {isHigh && state && (
+          {!isFocusMode && isHigh && state && (
             <Subtitle style={styles.emotionText}>
               {emotionalMessage[state.type]}
             </Subtitle>
           )}
 
-          <View
+          <Animated.View
             style={[
               styles.primaryCard,
               {
                 backgroundColor: theme.card,
-                borderColor: theme.border,
+                borderColor: isFocusMode ? theme.active : theme.border,
+                transform: [{ scale: cardScale }],
               },
             ]}
           >
             <Title>Sessão de foco</Title>
 
-            {!isLow && <Subtitle>Pronto para começar?</Subtitle>}
+            {!isLow && !isFocusMode && <Subtitle>Pronto para começar?</Subtitle>}
+
+            {isFocusMode && (
+              <View style={styles.focusInfo}>
+                <Subtitle
+                  style={[
+                    styles.focusLabel,
+                    {
+                      color: theme.active,
+                    },
+                  ]}
+                >
+                  Menos distrações
+                </Subtitle>
+
+                <Subtitle style={styles.focusSubtitle}>
+                  Interface reduzida para concentração.
+                </Subtitle>
+              </View>
+            )}
 
             <Button
               title="Iniciar agora"
-              style={{ marginTop: 16 }}
+              style={styles.startButton}
               onPress={onStartFocusSession}
             />
-          </View>
+          </Animated.View>
+
+          {!isFocusMode && !isLow && (
+            <Animated.View style={{ opacity: supportOpacity }}>
+              <Subtitle style={styles.supportText}>
+                Ajuste as preferências em Configurações para personalizar sua
+                experiência.
+              </Subtitle>
+            </Animated.View>
+          )}
         </View>
       </ResponsiveContainer>
     </SafeAreaView>
@@ -90,5 +163,23 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     gap: 12,
     borderWidth: 1,
+  },
+  focusInfo: {
+    marginTop: 2,
+    gap: 2,
+  },
+  focusLabel: {
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: "600",
+  },
+  focusSubtitle: {
+    opacity: 0.78,
+  },
+  startButton: {
+    marginTop: 16,
+  },
+  supportText: {
+    opacity: 0.65,
   },
 });

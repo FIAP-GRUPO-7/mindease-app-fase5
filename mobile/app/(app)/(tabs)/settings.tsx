@@ -69,7 +69,7 @@ export default function Settings() {
           <Subtitle style={styles.sectionTitle}>Ajustes adicionais</Subtitle>
 
           <View style={styles.switchRow}>
-            <Subtitle>Modo foco</Subtitle>
+            <Subtitle>Reduzir distrações</Subtitle>
             <Switch
               value={settings.focusMode}
               onValueChange={(value) =>
