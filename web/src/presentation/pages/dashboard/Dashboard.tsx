@@ -63,7 +63,7 @@ export default function Dashboard() {
               transition: reduceAnimations ? "none" : "all 0.3s ease",
               transform: isFocusMode ? "scale(1.02)" : "scale(1)",
             }}
-            className="mx-auto flex w-full max-w-[520px] flex-col gap-4 rounded-[24px] border p-8 text-center"
+            className="mx-auto flex w-full max-w-130 flex-col gap-4 rounded-3xl border p-8 text-center"
           >
             <Title>Sessão de foco</Title>
 
