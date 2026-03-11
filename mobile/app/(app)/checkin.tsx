@@ -1,13 +1,13 @@
-import { useEmotional } from "@/application/emotional/EmotionalContext";
 import { useCognitive } from "@/application/cognitive/CognitiveContext";
+import { useEmotional } from "@/application/emotional/EmotionalContext";
 import { EmotionalType } from "@/domain/entities/EmotionalState";
 import Button from "@/presentation/components/atoms/Button";
+import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { ThemeToggleButton } from "@/presentation/components/atoms/ThemeToggleButton";
 import { Title } from "@/presentation/components/atoms/Title";
-import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
-import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
 import { SelectableCard } from "@/presentation/components/molecules/SelectableCard";
+import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
 import { useTheme } from "@/presentation/theme/ThemeContext";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -21,6 +21,8 @@ export default function CheckIn() {
   const { setState } = useEmotional();
   const { settings } = useCognitive();
 
+  const isFocusMode = settings.focusMode;
+
   const handleContinue = async () => {
     if (!selected) return;
     await setState(selected);
@@ -29,17 +31,21 @@ export default function CheckIn() {
 
   return (
     <View style={[styles.screen, { backgroundColor: theme.background }]}>
-      <View style={styles.themeButton}>
-        <ThemeToggleButton />
-      </View>
+      {!isFocusMode && (
+        <View style={styles.themeButton}>
+          <ThemeToggleButton />
+        </View>
+      )}
 
       <ResponsiveContainer>
-        <ProgressIndicator
-          current={1}
-          total={3}
-          type={settings.progressType}
-          style={{ marginTop: 20 }}
-        />
+        {!isFocusMode && (
+          <ProgressIndicator
+            current={1}
+            total={3}
+            type={settings.progressType}
+            style={{ marginTop: 20 }}
+          />
+        )}
 
         <View style={styles.content}>
           <View style={styles.header}>

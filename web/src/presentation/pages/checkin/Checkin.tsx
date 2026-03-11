@@ -3,11 +3,11 @@ import { useCognitive } from "@/application/cognitive/CognitiveContext";
 import type { EmotionalType } from "@/domain/entities/EmotionalState";
 
 import Button from "@/presentation/components/atoms/Button";
+import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { ThemeToggleButton } from "@/presentation/components/atoms/ThemeToggleButton";
 import { Title } from "@/presentation/components/atoms/Title";
 import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
-import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
 import { SelectableCard } from "@/presentation/components/molecules/SelectableCard";
 import { useTheme } from "@/presentation/theme/ThemeContext";
 
@@ -23,6 +23,8 @@ export default function CheckIn() {
   const { setState } = useEmotional();
   const { settings } = useCognitive();
 
+  const isFocusMode = settings.focusMode;
+
   const handleContinue = async () => {
     if (!selected) return;
 
@@ -35,19 +37,23 @@ export default function CheckIn() {
       style={{ backgroundColor: theme.background }}
       className="min-h-screen relative"
     >
-      <div className="absolute top-[60px] right-6 z-10">
-        <ThemeToggleButton />
-      </div>
+      {!isFocusMode && (
+        <div className="absolute top-[60px] right-6 z-10">
+          <ThemeToggleButton />
+        </div>
+      )}
 
       <ResponsiveContainer>
-        <ProgressIndicator
-          current={1}
-          total={3}
-          type={settings.progressType}
-          className="mt-5"
-        />
+        {!isFocusMode && (
+          <ProgressIndicator
+            current={1}
+            total={3}
+            type={settings.progressType}
+            className="mt-5"
+          />
+        )}
 
-        <div className="flex flex-col justify-center gap-4 min-h-screen">
+        <div className="flex min-h-screen flex-col justify-center gap-4">
           <div className="mb-10">
             <Title>Como você está agora?</Title>
 

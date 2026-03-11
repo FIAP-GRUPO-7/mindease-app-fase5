@@ -1,8 +1,9 @@
 import { getBreathingPattern } from "@/application/breathing/getBreathingPattern";
+import { useCognitive } from "@/application/cognitive/CognitiveContext";
 import { useEmotional } from "@/application/emotional/EmotionalContext";
 import { useFocus } from "@/application/focus/FocusContext";
-import { useCognitive } from "@/application/cognitive/CognitiveContext";
 import Button from "@/presentation/components/atoms/Button";
+import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { Title } from "@/presentation/components/atoms/Title";
 import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
@@ -12,7 +13,6 @@ import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
 
 export default function BreathingIntro() {
   const { theme } = useTheme();
@@ -23,6 +23,7 @@ export default function BreathingIntro() {
 
   const emotional = emotionalState?.type;
   const focus = focusState?.[0]?.area;
+  const isFocusMode = settings.focusMode;
 
   const pattern = getBreathingPattern(emotional ?? "anxious", focus ?? "calm");
 
@@ -31,14 +32,18 @@ export default function BreathingIntro() {
   };
 
   return (
-    <SafeAreaView style={[styles.screen, { backgroundColor: theme.background }]}>
+    <SafeAreaView
+      style={[styles.screen, { backgroundColor: theme.background }]}
+    >
       <ResponsiveContainer>
-        <ProgressIndicator
-          current={3}
-          total={3}
-          type={settings.progressType}
-          style={{ marginTop: 20 }}
-        />
+        {!isFocusMode && (
+          <ProgressIndicator
+            current={3}
+            total={3}
+            type={settings.progressType}
+            style={{ marginTop: 20 }}
+          />
+        )}
 
         <View style={styles.content}>
           <View style={styles.textContainer}>

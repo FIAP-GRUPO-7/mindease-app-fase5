@@ -1,18 +1,18 @@
 import { useFocus } from "@/application/focus/FocusContext";
+import { useCognitive } from "@/application/cognitive/CognitiveContext";
 import { FocusArea } from "@/domain/entities/FocusArea";
 import Button from "@/presentation/components/atoms/Button";
+import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
+import { ThemeToggleButton } from "@/presentation/components/atoms/ThemeToggleButton";
 import { Title } from "@/presentation/components/atoms/Title";
 import { SelectableOption } from "@/presentation/components/molecules/SelectableOption";
+import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
 import { useTheme } from "@/presentation/theme/ThemeContext";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
-import { useCognitive } from "@/application/cognitive/CognitiveContext";
-import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
-import { ThemeToggleButton } from "@/presentation/components/atoms/ThemeToggleButton";
 
 export default function Focus() {
   const { theme } = useTheme();
@@ -20,6 +20,8 @@ export default function Focus() {
   const { settings } = useCognitive();
 
   const [selected, setSelected] = useState<FocusArea[]>([]);
+
+  const isFocusMode = settings.focusMode;
 
   const toggleSelection = (area: FocusArea) => {
     setSelected((prev) =>
@@ -37,18 +39,24 @@ export default function Focus() {
   };
 
   return (
-    <SafeAreaView style={[styles.screen, { backgroundColor: theme.background }]}>
-      <View style={styles.themeButton}>
-        <ThemeToggleButton />
-      </View>
+    <SafeAreaView
+      style={[styles.screen, { backgroundColor: theme.background }]}
+    >
+      {!isFocusMode && (
+        <View style={styles.themeButton}>
+          <ThemeToggleButton />
+        </View>
+      )}
 
       <ResponsiveContainer>
-        <ProgressIndicator
-          current={2}
-          total={3}
-          type={settings.progressType}
-          style={{ marginTop: 20 }}
-        />
+        {!isFocusMode && (
+          <ProgressIndicator
+            current={2}
+            total={3}
+            type={settings.progressType}
+            style={{ marginTop: 20 }}
+          />
+        )}
 
         <View style={styles.content}>
           <Title>Do que você precisa?</Title>

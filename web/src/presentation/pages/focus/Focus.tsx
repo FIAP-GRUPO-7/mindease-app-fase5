@@ -1,16 +1,15 @@
 import { useFocus } from "@/application/focus/FocusContext";
+import { useCognitive } from "@/application/cognitive/CognitiveContext";
 import type { FocusArea } from "@/domain/entities/FocusArea";
 
 import Button from "@/presentation/components/atoms/Button";
-import { Subtitle } from "@/presentation/components/atoms/Subtitle";
-import { Title } from "@/presentation/components/atoms/Title";
-import { SelectableOption } from "@/presentation/components/molecules/SelectableOption";
 import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
-import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
+import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { ThemeToggleButton } from "@/presentation/components/atoms/ThemeToggleButton";
-
+import { Title } from "@/presentation/components/atoms/Title";
+import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
+import { SelectableOption } from "@/presentation/components/molecules/SelectableOption";
 import { useTheme } from "@/presentation/theme/ThemeContext";
-import { useCognitive } from "@/application/cognitive/CognitiveContext";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -22,6 +21,8 @@ export default function Focus() {
   const navigate = useNavigate();
 
   const [selected, setSelected] = useState<FocusArea[]>([]);
+
+  const isFocusMode = settings.focusMode;
 
   const toggleSelection = (area: FocusArea) => {
     setSelected((prev) =>
@@ -35,7 +36,6 @@ export default function Focus() {
     if (selected.length === 0) return;
 
     await Promise.all(selected.map((area) => addFocus(area)));
-
     navigate("/breathing");
   };
 
@@ -44,19 +44,23 @@ export default function Focus() {
       style={{ backgroundColor: theme.background }}
       className="min-h-screen relative"
     >
-      <div className="absolute top-[60px] right-6 z-10">
-        <ThemeToggleButton />
-      </div>
+      {!isFocusMode && (
+        <div className="absolute top-[60px] right-6 z-10">
+          <ThemeToggleButton />
+        </div>
+      )}
 
       <ResponsiveContainer>
-        <ProgressIndicator
-          current={2}
-          total={3}
-          type={settings.progressType}
-          className="mt-5"
-        />
+        {!isFocusMode && (
+          <ProgressIndicator
+            current={2}
+            total={3}
+            type={settings.progressType}
+            className="mt-5"
+          />
+        )}
 
-        <div className="flex flex-col justify-center gap-4 py-6 min-h-screen">
+        <div className="flex min-h-screen flex-col justify-center gap-4 py-6">
           <Title>Do que você precisa?</Title>
 
           <Subtitle>Escolha as áreas que deseja priorizar agora.</Subtitle>

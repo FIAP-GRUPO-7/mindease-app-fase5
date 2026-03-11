@@ -1,29 +1,28 @@
 import { getBreathingPattern } from "@/application/breathing/getBreathingPattern";
+import { useCognitive } from "@/application/cognitive/CognitiveContext";
 import { useEmotional } from "@/application/emotional/EmotionalContext";
 import { useFocus } from "@/application/focus/FocusContext";
-import { useCognitive } from "@/application/cognitive/CognitiveContext";
 
 import Button from "@/presentation/components/atoms/Button";
+import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
 import { Subtitle } from "@/presentation/components/atoms/Subtitle";
 import { Title } from "@/presentation/components/atoms/Title";
 import ResponsiveContainer from "@/presentation/components/ResponsiveContainer";
 import { BreathingOrb } from "@/presentation/components/organisms/BreathingOrb";
-import { ProgressIndicator } from "@/presentation/components/atoms/ProgressIndicator";
-
 import { useTheme } from "@/presentation/theme/ThemeContext";
 
 import { useNavigate } from "react-router-dom";
 
 export default function BreathingIntro() {
   const { theme } = useTheme();
-  const navigate = useNavigate();
-
   const { state: emotionalState } = useEmotional();
   const { state: focusState } = useFocus();
   const { settings } = useCognitive();
+  const navigate = useNavigate();
 
   const emotional = emotionalState?.type;
   const focus = focusState?.[0]?.area;
+  const isFocusMode = settings.focusMode;
 
   const pattern = getBreathingPattern(emotional ?? "anxious", focus ?? "calm");
 
@@ -34,24 +33,26 @@ export default function BreathingIntro() {
   return (
     <div style={{ backgroundColor: theme.background }} className="min-h-screen">
       <ResponsiveContainer>
-        <ProgressIndicator
-          current={3}
-          total={3}
-          type={settings.progressType}
-          className="mt-5"
-        />
+        {!isFocusMode && (
+          <ProgressIndicator
+            current={3}
+            total={3}
+            type={settings.progressType}
+            className="mt-5"
+          />
+        )}
 
-        <div className="flex flex-col justify-between min-h-screen py-[60px]">
-          <div className="flex flex-col items-center gap-2 mt-10">
+        <div className="flex min-h-screen flex-col justify-between py-[60px]">
+          <div className="mt-10 flex flex-col items-center gap-2">
             <Title>Respire com calma</Title>
 
-            <Subtitle>
+            <Subtitle className="text-center">
               Inspire lentamente pelo nariz enquanto o círculo cresce. <br />
               Solte o ar pela boca enquanto ele se recolhe.
             </Subtitle>
           </div>
 
-          <div className="flex justify-center items-center flex-1">
+          <div className="flex flex-1 items-center justify-center">
             <BreathingOrb
               inhaleDuration={pattern.inhale}
               exhaleDuration={pattern.exhale}
